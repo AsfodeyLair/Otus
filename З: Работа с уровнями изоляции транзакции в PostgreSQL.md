@@ -1,13 +1,11 @@
+
 - Выключить auto commit: 
 
-> \set AUTOCOMMIT off \echo :AUTOCOMMIT
+    \set AUTOCOMMIT off \echo :AUTOCOMMIT
 
 Cделать в первой сессии новую таблицу и наполнить ее данными: 
 
-> create table persons(id serial, first_name text, second_name text);
-> insert into persons(first_name, second_name) values('ivan','ivanov');  
-> insert into persons(first_name, second_name) values('petr','petrov');  
-> commit;
+    create table persons(id serial, first_name text, second_name text);insert into persons(first_name, second_name) values('ivan','ivanov');  insert into persons(first_name, second_name) values('petr','petrov');  commit;
 
 Посмотреть текущий уровень изоляции: 
 
@@ -17,11 +15,11 @@ Cделать в первой сессии новую таблицу и напо
 
 Начать новую транзакцию в обоих сессиях с дефолтным (не меняя) уровнем изоляции. В первой сессии добавить новую запись 
 
-> insert into persons(first_name, second_name) values('sergey', 'sergeev');
+    insert into persons(first_name, second_name) values('sergey', 'sergeev');
 
 Сделать во второй сессии: 
 
-> select * from persons;
+    select * from persons;
 
 |id|first_name|second_name|
 |--|----|---------|
@@ -30,18 +28,18 @@ Cделать в первой сессии новую таблицу и напо
 
 Видите ли вы новую запись и если да то почему?
 
-    Не видим потому что: 
-    1. Выключили auto commit 
-    2. Не выполнили явный commit для транзакции с Insert 
-    3. Выполнили транзакцию SELECT с уровнем изоляции по умолчанию (read committed)
+>Не видим потому что: 
+>1. Выключили auto commit 
+>2. Не выполнили явный commit для транзакции с Insert 
+>3. Выполнили транзакцию SELECT с уровнем изоляции по умолчанию (read committed)
 
 Завершить первую транзакцию - 
 
-> commit;
+    commit;
 
 Сделать во второй сессии.
 
-> select * from persons
+    select * from persons
 
 |id|first_name|second_name|
 |--|----|---------|
@@ -51,20 +49,21 @@ Cделать в первой сессии новую таблицу и напо
 
  Видите ли вы новую запись и если да то почему?
 
-    Видим, потому что сделали ручной commit.
+> Видим, потому что сделали ручной commit.
 
 Завершите транзакцию во второй сессии.
-
 Начать новые но уже repeatable read транзакции: 
 Устанавливаем уровень изоляции транзакций repeatable read: 
 
-> set transaction isolation level repeatable read;
+    set transaction isolation level repeatable read;
 
 В первой сессии добавить новую запись: 
-> insert into persons(first_name, second_name) values('sveta', 'svetova');
+
+    insert into persons(first_name, second_name) values('sveta', 'svetova');
 
 Сделать во второй сессии: 
-> select * from persons;
+
+    select * from persons;
 
 |id|first_name|second_name|
 |--|----|---------|
@@ -73,14 +72,15 @@ Cделать в первой сессии новую таблицу и напо
 
 Видите ли вы новую запись и если да то почему? 
 
-    Нет, потому что не включали AUTOCOMMIT
+>Нет, потому что не включали AUTOCOMMIT
 
 Завершить первую транзакцию 
 
-> commit;
+    commit;
 
 Сделать во второй сессии 
-> select * from persons
+
+    select * from persons
 
 |id|first_name|second_name|
 |--|----|---------|
@@ -90,7 +90,7 @@ Cделать в первой сессии новую таблицу и напо
 
 Видите ли вы новую запись и если да то почему? 
 
-    Нет, потому что установили уровень изоляции repeatable read в текущей транзакции.
+>Нет, потому что установили уровень изоляции repeatable read в текущей транзакции.
 
 Завершить вторую транзакцию, сделать во второй сессии: 
 > select * from persons
@@ -105,4 +105,4 @@ Cделать в первой сессии новую таблицу и напо
 
 Видите ли вы новую запись и если да то почему? 
 
-    Да потому что начали новую транзакцию со стандартным уровнем изоляции - read commited.
+>Да потому что начали новую транзакцию со стандартным уровнем изоляции - read commited.
