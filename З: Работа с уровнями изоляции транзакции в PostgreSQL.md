@@ -22,10 +22,10 @@ Cделать в первой сессии новую таблицу и напо
 Сделать во второй сессии: 
 
 > select * from persons; 
-	id	first_name second_name 
-		 1 ivan ivanov 
- 2 petr petrov
-
+|id|first_name|second_name|
+|--|----|---------|
+|5|ivan|ivanov|
+|6|petr|petrov|
 
 Видите ли вы новую запись и если да то почему?
 
@@ -41,10 +41,11 @@ Cделать в первой сессии новую таблицу и напо
 Сделать во второй сессии.
 
 > select * from persons
-> id	 |	first_name | second_name
-> 5	|	ivan      |	ivanov
-> 6	|	petr       | petrov
-> 8	|	sergey     |	sergeev
+|id|first_name|second_name|
+|--|----|---------|
+|5|ivan|ivanov|
+|6|petr|petrov|
+|8| sergey|sergeev|
 
  Видите ли вы новую запись и если да то почему?
 
@@ -73,10 +74,11 @@ Cделать в первой сессии новую таблицу и напо
 
 Сделать во второй сессии 
 > select * from persons
-> id	 |	first_name | second_name
-> 5	|	ivan      |	ivanov
-> 6	|	petr       | petrov
-> 8	|	sergey     |	sergeev
+|id|first_name|second_name|
+|--|----|---------|
+|5|ivan|ivanov|
+|6|petr|petrov|
+|8| sergey|sergeev|
 
 Видите ли вы новую запись и если да то почему? 
 
@@ -85,7 +87,7 @@ Cделать в первой сессии новую таблицу и напо
 Завершить вторую транзакцию, сделать во второй сессии: 
 > select * from persons
 |id|first_name|second_name|
-|-|-|-|
+|--|----|---------|
 |5|ivan|ivanov|
 |6|petr|petrov|
 |8| sergey|sergeev|
